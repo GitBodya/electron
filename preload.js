@@ -1,4 +1,12 @@
+window.myAPI = {
+    desktop: true,
+}
+
 const { contextBridge, ipcRenderer } = require('electron')
+
+contextBridge.exposeInMainWorld('myAPI', {
+    desktop: true,
+})
 
 contextBridge.exposeInMainWorld('versions', {
     node: () => process.versions.node,
