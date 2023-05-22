@@ -1,5 +1,9 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
+contextBridge.exposeInMainWorld('myAPI1', {
+    doAThing: () => {}
+})
+
 contextBridge.exposeInMainWorld('myAPI', {
     desktop: true,
 })
