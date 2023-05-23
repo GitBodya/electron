@@ -12,9 +12,17 @@ const createWindow = () => {
     ipcMain.handle('ping', () => 'pong')
     win.loadFile('index.html')
 }
+ipcMain.on('set-title', (event, title) => {
+    const webContents = event.sender
+    const win = BrowserWindow.fromWebContents(webContents)
+    win.setTitle(title)
+})
 
 app.whenReady().then(() => {
     createWindow()
+    app.on('activate', function() {
+        if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    })
 })
 
 app.on('window-all-closed', () => {
