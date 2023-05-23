@@ -9,7 +9,6 @@ const createWindow = () => {
             preload: path.join(__dirname, 'preload.js')
         },
     })
-    ipcMain.handle('ping', () => 'pong')
     win.loadFile('index.html')
 }
 ipcMain.on('set-title', (event, title) => {
