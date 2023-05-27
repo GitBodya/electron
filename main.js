@@ -1,4 +1,5 @@
 const { BrowserWindow, app, MessageChannelMain } = require('electron')
+const path = require('path')
 
 app.whenReady().then(async() => {
     // create the windows.
@@ -6,7 +7,7 @@ app.whenReady().then(async() => {
         show: false,
         webPreferences: {
             contextIsolation: false,
-            preload: 'preloadMain.js'
+            preload: path.join(__dirname, 'preloadMain.js')
         }
     })
 
@@ -14,7 +15,7 @@ app.whenReady().then(async() => {
         show: false,
         webPreferences: {
             contextIsolation: false,
-            preload: 'preloadSecondary.js'
+            preload: path.join(__dirname, 'preloadSecondary.js')
         }
     })
 
