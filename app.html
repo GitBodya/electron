@@ -1,20 +1,34 @@
-<script>
-    const {
-        ipcRenderer
-    } = require('electron')
+<!DOCTYPE html>
+<html lang="en">
 
-    // We request that the main process sends us a channel we can use to
-    // communicate with the worker.
-    ipcRenderer.send('request-worker-channel')
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
 
-    ipcRenderer.once('provide-worker-channel', (event) => {
-        // Once we receive the reply, we can take the port...
-        const [port] = event.ports
-            // ... register a handler to receive results ...
-        port.onmessage = (event) => {
-                console.log('received result:', event.data)
-            }
-            // ... and start sending it work!
-        port.postMessage(21)
-    })
-</script>
+<body>
+    <script>
+        const {
+            ipcRenderer
+        } = require('electron')
+
+        // We request that the main process sends us a channel we can use to
+        // communicate with the worker.
+        ipcRenderer.send('request-worker-channel')
+
+        ipcRenderer.once('provide-worker-channel', (event) => {
+            // Once we receive the reply, we can take the port...
+            const [port] = event.ports
+                // ... register a handler to receive results ...
+            port.onmessage = (event) => {
+                    console.log('received result:', event.data)
+                }
+                // ... and start sending it work!
+            port.postMessage(21)
+        })
+    </script>
+</body>
+
+</html>

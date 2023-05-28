@@ -1,22 +1,36 @@
-<script>
-    const {
-        ipcRenderer
-    } = require('electron')
+<!DOCTYPE html>
+<html lang="en">
 
-    const doWork = (input) => {
-        // Something cpu-intensive.
-        return input * 2
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
 
-    // We might get multiple clients, for instance if there are multiple windows,
-    // or if the main window reloads.
-    ipcRenderer.on('new-client', (event) => {
-        const [port] = event.ports
-        port.onmessage = (event) => {
-            // The event data can be any serializable object (and the event could even
-            // carry other MessagePorts with it!)
-            const result = doWork(event.data)
-            port.postMessage(result)
+<body>
+    <script>
+        const {
+            ipcRenderer
+        } = require('electron')
+
+        const doWork = (input) => {
+            // Something cpu-intensive.
+            return input * 2
         }
-    })
-</script>
+
+        // We might get multiple clients, for instance if there are multiple windows,
+        // or if the main window reloads.
+        ipcRenderer.on('new-client', (event) => {
+            const [port] = event.ports
+            port.onmessage = (event) => {
+                // The event data can be any serializable object (and the event could even
+                // carry other MessagePorts with it!)
+                const result = doWork(event.data)
+                port.postMessage(result)
+            }
+        })
+    </script>
+</body>
+
+</html>
