@@ -5,7 +5,8 @@ exports.config = {
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
-    
+
+    port: 4723,
     //
     // ==================
     // Specify Test Files
@@ -51,9 +52,13 @@ exports.config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
+
     capabilities: [{
-        // capabilities for local browser web tests
-        browserName: 'chrome' // or "firefox", "microsoftedge", "safari"
+        browserName: 'chrome',
+        'goog:chromeOptions': {
+            binary: 'd:\\2023\Electron\my_electron_app\out\my_electron_app-win32-x64\my_electron_app.exe', // Path to your Electron binary.
+            args: [ /* cli arguments */ ] // Optional, perhaps 'app=' + /path/to/your/app/
+        }
     }],
     //
     // ===================
@@ -86,7 +91,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://localhost',
+    baseUrl: '',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -102,8 +107,8 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['chromedriver'],
-    
+    services: ['appium'],
+
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
@@ -126,7 +131,7 @@ exports.config = {
     // see also: https://webdriver.io/docs/dot-reporter
     reporters: ['spec'],
 
-    
+
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -275,10 +280,10 @@ exports.config = {
     // onComplete: function(exitCode, config, capabilities, results) {
     // },
     /**
-    * Gets executed when a refresh happens.
-    * @param {string} oldSessionId session ID of the old session
-    * @param {string} newSessionId session ID of the new session
-    */
+     * Gets executed when a refresh happens.
+     * @param {string} oldSessionId session ID of the old session
+     * @param {string} newSessionId session ID of the new session
+     */
     // onReload: function(oldSessionId, newSessionId) {
     // }
 }
